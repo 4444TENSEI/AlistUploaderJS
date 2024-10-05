@@ -13,9 +13,13 @@
 
 <hr/>
 
-# 使用教程
+# 使用示例(HTML): https://github.com/4444TENSEI/AlistUploaderJS/tree/main/demo/index.html
+
+# ![](https://testingcf.jsdelivr.net/gh/4444TENSEI/CDN/img/server/readme/AlistUploaderJS/01.webp)
 
 <hr/>
+
+# 使用教程
 
 ## CDN引入
 
@@ -77,7 +81,3 @@
 ```
 
 <hr/>
-
-# 完整示例(HTML)
-
-https://github.com/4444TENSEI/AlistUploaderJS/tree/main/demo/index.html
