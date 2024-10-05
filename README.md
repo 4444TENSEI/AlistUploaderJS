@@ -13,7 +13,7 @@
 
 <hr/>
 
-# 使用示例(HTML): https://github.com/4444TENSEI/AlistUploaderJS/tree/main/demo/index.html
+# 使用示例(HTML): [https://github.com/4444TENSEI/AlistUploaderJS/tree/main/demo/index.html](https://github.com/4444TENSEI/AlistUploaderJS/tree/main/demo/index.html){target="_blank"}
 
 # ![](https://testingcf.jsdelivr.net/gh/4444TENSEI/CDN/img/server/readme/AlistUploaderJS/01.webp)
 
