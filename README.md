@@ -80,4 +80,4 @@
 
 # 完整示例(HTML)
 
-https://github.com/4444TENSEI/AlistUploaderJS/tree/master/demo/index.html
+https://github.com/4444TENSEI/AlistUploaderJS/tree/main/demo/index.html
