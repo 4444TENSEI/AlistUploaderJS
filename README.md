@@ -14,7 +14,7 @@
 
 <hr/>
 
-#  版本v0.1.1-使用示例(HTML):
+#  版本v0.1.2-使用示例(HTML):
 
 
 
@@ -31,7 +31,7 @@
 ## CDN引入
 
 ```html
-<script src="https://testingcf.jsdelivr.net/gh/4444TENSEI/AlistUploaderJS@v0.1.1/npm/alist-uploader.js"></script>
+<script src="https://testingcf.jsdelivr.net/gh/4444TENSEI/AlistUploaderJS@v0.1.2/npm/alist-uploader.js"></script>
 ```
 
 ## 放置上传按钮

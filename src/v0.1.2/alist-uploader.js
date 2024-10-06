@@ -41,7 +41,7 @@
         }
 
         static printVersionInfo() {
-            console.log('%cAlistUploaderJS v0.1.1', `
+            console.log('%cAlistUploaderJS v0.1.2', `
                 color: white;
                 background: linear-gradient(to right, rgb(120,120,220) 20%, rgb(160,200,240) 80%);
                 padding: 6px;

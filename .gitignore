@@ -1,3 +1,4 @@
 node_modules/
 test/
 git-push.bat
+push-clean.bat
