@@ -1,7 +1,7 @@
 <p align="center"><img src="https://testingcf.jsdelivr.net/gh/4444TENSEI/CDN/img/avatar/AngelDog/AngelDog-rounded.png" alt="Logo"
     width="200" height="200"/></p>
-<h1 align="center">纯前端调用Alist API实现文件上传</h1>
-<h3 align="center">登录、目录创建、多文件上传，不管挂载了什么类型的储存到Alist都能直接上传，例如webdav。</h3>
+<h1 align="center">AlistUploaderJS</h1>
+<h3 align="center">纯前端调用Alist API往多种云储存上传文件，包括目录创建、多文件上传，不管挂载了什么类型的储存都能直接上传，例如webdav，方便集成到个人项目。</h3>
 <p align="center">
 <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" />
 <img src="https://img.shields.io/badge/JavaScript-white?style=for-the-badge&logo=javascript&logoColor=blue" />
