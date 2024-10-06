@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>简化示例-AlistUploaderJS</title>
+    <!-- CDN引入 -->
+    <script src="https://testingcf.jsdelivr.net/gh/4444TENSEI/AlistUploaderJS@v0.1.1/npm/alist-uploader.js"></script>
+  </head>
+
+  <body>
+    <details>
+      <summary>这是一个只有上传功能的示例, 展开提示</summary>
+      这个示例仅展示上传。要查看上传具体状态,
+      请配置代码中的alistUploaderOptions变量包含"debug: true"后, 查看F12控制台。
+    </details>
+
+    <input type="file" id="fileInput" multiple />
+    <button type="button" onclick="uploadFiles()">上传</button>
+
+    <script>
+      // 配置Alist上传器
+      const alistUploaderOptions = new AlistUploader({
+        // [必须]你的Alist服务地址
+        baseUrl: "https://alist.example.com",
+        // [必须]Alist账号
+        username: "admin",
+        // [必须]Alist密码
+        password: "123456",
+        // [必须]上传到哪个目录，例如要传到"https://alist.example.com/webdav"，则照下方填写
+        uploadRootFolder: "webdav",
+
+        // [可选]上传并发数量, 默认值为 1。
+        concurrency: 3,
+        // [可选]为每次上传自动创建以时间命名(14位数字)的文件夹, 默认值为 false。
+        createTimestampFolder: true,
+        // [可选]控制台调试开关, 默认值为 false。
+        debug: true,
+        // [可选]版本号信息输出开关, 默认值为 true。
+        showVersionInfo: true,
+        // [可选]上传类型, 默认值为 "stream"也就是流式传输, 也可设置为"form"表单方式。
+        uploadMethod: "stream",
+      });
+
+      // 上传按钮
+      function uploadFiles() {
+        const files = document.getElementById("fileInput").files;
+        alistUploaderOptions.on("complete", (allSuccess) => {
+          alert(allSuccess ? "所有文件上传完成！" : "部分文件上传失败。");
+        });
+        alistUploaderOptions.uploadFiles(files).catch((error) => {
+          console.error("上传出错:", error);
+        });
+      }
+    </script>
+  </body>
+</html>
