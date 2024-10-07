@@ -1,7 +1,7 @@
 <p align="center"><img src="https://testingcf.jsdelivr.net/gh/4444TENSEI/CDN/img/avatar/AngelDog/AngelDog-rounded.png" alt="Logo"
     width="200" height="200"/></p>
 <h1 align="center">AlistUploaderJS</h1>
-<h4 align="center">纯前端调用Alist API往多种云储存上传文件，需要自行部署Alist并至少添加一个在线储存。实现的功能包括：目录创建、多文件上传，不管你挂载了什么储存都能上传，例如webdav、各类云盘，推荐CDN在线引入，方便集成到小型个人项目。</h4>
+<h4 align="center">纯前端调用Alist API往多种云储存上传文件，需要自行部署Alist并至少添加一个在线储存(只要是在Alist客户端支持上传的储存)。实现的功能包括：目录创建、多文件上传，例如webdav、各类云盘，推荐CDN在线引入，方便集成到小型个人项目。</h4>
 <p align="center">
 <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" />
 <img src="https://img.shields.io/badge/JavaScript-white?style=for-the-badge&logo=javascript&logoColor=blue" />
@@ -14,7 +14,7 @@
 
 <hr/>
 
-#  版本v0.1.2-使用示例(HTML):
+#  版本v0.1.3-使用示例(HTML):
 
 
 
@@ -31,7 +31,7 @@
 ## CDN引入
 
 ```html
-<script src="https://testingcf.jsdelivr.net/gh/4444TENSEI/AlistUploaderJS@0.1.2/npm/alist-uploader.js"></script>
+<script src="https://testingcf.jsdelivr.net/gh/4444TENSEI/AlistUploaderJS@0.1.3/npm/alist-uploader.js"></script>
 ```
 
 ## 放置上传按钮
