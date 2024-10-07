@@ -5,22 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>完整示例-AlistUploaderJS</title>
     <!-- CDN引入 -->
-    <script src="https://testingcf.jsdelivr.net/gh/4444TENSEI/AlistUploaderJS@0.1.2/npm/alist-uploader.js"></script>
+    <script src="https://testingcf.jsdelivr.net/gh/4444TENSEI/AlistUploaderJS@0.1.3/npm/alist-uploader.js"></script>
   </head>
 
   <body>
-    <details>
-      <summary>这是一个完整示例, 展开提示</summary>
-      这个示例包含了上传、进度条展示、取消上传、清空上传列表。要查看上传具体状态,
-      请配置代码中的alistUploaderOptions变量包含"debug: true"后, 查看F12控制台。
-    </details>
-
-    <input type="file" id="fileInput" multiple />
+    <input type="file" id="fileInput" multiple title="选择文件进行上传" />
     <button type="button" onclick="uploadFiles()">上传</button>
     <button type="button" onclick="cancelUpload()">取消上传</button>
     <button type="button" onclick="clearProgress()">清空列表</button>
-
-    <p>上传进度</p>
+    <h4>上传中的任务</h4>
+    <div id="uploadStatusContainer"></div>
+    <h4>上传进度</h4>
     <div id="progressContainer"></div>
 
     <script>
@@ -40,73 +35,110 @@
         // [可选]为每次上传自动创建以时间命名(14位数字)的文件夹, 默认值为 false。
         createTimestampFolder: true,
         // [可选]控制台调试开关, 默认值为 false。
-        debug: true,
+        debug: false,
         // [可选]版本号信息输出开关, 默认值为 true
-        showVersionInfo: true,
+        showVersionInfo: false,
         // [可选]上传类型, 默认值为 "stream"也就是流式传输, 也可设置为"form"表单方式。
         uploadMethod: "stream",
       });
 
+      // 更新上传状态
+      function updateUploadStatus(isUploading) {
+        const uploadStatusContainer = document.getElementById(
+          "uploadStatusContainer"
+        );
+        uploadStatusContainer.innerHTML = `<p>${
+          isUploading ? "存在文件正在上传..." : "所有文件上传完毕~"
+        }</p>`;
+      }
+
       // 上传进度展示
       function updateProgress(fileProgress) {
         const progressContainer = document.getElementById("progressContainer");
+        updateUploadStatus(
+          Object.values(fileProgress).some(
+            (fileInfo) => fileInfo.uploadStatus === "uploading"
+          )
+        );
         progressContainer.innerHTML = "";
         Object.keys(fileProgress).forEach((filename) => {
           const fileInfo = fileProgress[filename];
           const progressElement = document.createElement("div");
-
-          // 创建进度条
           const progressBar = document.createElement("progress");
           progressBar.max = 100;
           progressBar.value = fileInfo.progress;
 
-          // 上传进度
-          const progressLabel = document.createElement("span");
-          progressLabel.textContent = `${filename}:${fileInfo.progressText}`;
+          const statusText = fileInfo.uploadStatus
+            ? `上传状态：${
+                fileInfo.uploadStatus === "uploading"
+                  ? "上传中"
+                  : fileInfo.uploadStatus === "finish"
+                  ? "上传完毕"
+                  : "未开始"
+              }`
+            : "上传状态：未开始";
 
-          // 文件大小
+          const progressLabel = document.createElement("span");
+          progressLabel.textContent = ` | 文件名: ${filename} (${fileInfo.progress}%) - ${statusText}`;
+
           const fileSizeLabel = document.createElement("span");
           fileSizeLabel.textContent = ` | 文件大小: ${fileInfo.fileSize}`;
 
-          // 上传速度
           const speedLabel = document.createElement("span");
           speedLabel.textContent = ` | 平均速度: ${fileInfo.uploadSpeed}`;
 
-          // 已用时间
           const timeDiffLabel = document.createElement("span");
           timeDiffLabel.textContent = ` | 已用时间: ${fileInfo.timeDiff} 秒`;
 
-          // 剩余时间
           const remainingTimeLabel = document.createElement("span");
           remainingTimeLabel.textContent = ` | 剩余时间: ${fileInfo.remainingTime} 秒`;
 
+          // 元素显示顺序
           progressElement.appendChild(progressLabel);
-          progressElement.appendChild(progressBar);
           progressElement.appendChild(fileSizeLabel);
+          progressElement.appendChild(progressBar);
           progressElement.appendChild(speedLabel);
-          progressElement.appendChild(remainingTimeLabel);
           progressElement.appendChild(timeDiffLabel);
+          progressElement.appendChild(remainingTimeLabel);
+
+          // 上传完毕则显示在线地址
+          if (fileInfo.uploadStatus === "finish") {
+            const fileUrlLabel = document.createElement("a");
+            fileUrlLabel.href = fileInfo.fileUrl;
+            fileUrlLabel.textContent = "在线查看";
+            fileUrlLabel.target = "_blank";
+            progressElement.appendChild(fileUrlLabel);
+          }
           progressContainer.appendChild(progressElement);
-          progressContainer.appendChild(document.createElement("br")); // 添加换行
+          progressContainer.appendChild(document.createElement("br"));
         });
       }
 
       // 上传按钮
       function uploadFiles() {
         const files = document.getElementById("fileInput").files;
+        if (files.length === 0) {
+          alert("请选择文件后再上传！");
+          return;
+        }
+        // 上传进度监听
         alistUploaderOptions.on("progress", updateProgress);
+        // 上传完成监听
         alistUploaderOptions.on("complete", (allSuccess) => {
-          alert(allSuccess ? "所有文件上传完成！" : "某些文件上传失败。");
+          const progressContainer =
+            document.getElementById("progressContainer");
         });
-        alistUploaderOptions.uploadFiles(files).catch((error) => {
-          console.error("上传出错:", error);
+        alistUploaderOptions.on("error", (error) => {
+          const progressContainer =
+            document.getElementById("progressContainer");
+          progressContainer.innerHTML += `<p>上传出错: ${error}</p>`;
         });
+        alistUploaderOptions.uploadFiles(files);
       }
 
-      // 清空列表
+      // 清理上传列表
       function clearProgress() {
-        const progressContainer = document.getElementById("progressContainer");
-        progressContainer.innerHTML = "";
+        document.getElementById("progressContainer").innerHTML = "";
       }
 
       // 取消上传
