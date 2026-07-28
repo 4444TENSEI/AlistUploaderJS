@@ -48,8 +48,8 @@
     AlistUploader.prototype.createFolder = async function (token) {
         if (this.createTimestampFolder) {
             const folderName = new Date()
-                .toISOString()
-                .replace(/[-:.TZ]/g, "")
+                .toLocaleString("zh-CN", { timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone })
+                .replace(/[^\d]/g, "")
                 .substring(0, 14);
             const response = await fetch(`${this.alistBaseUrl}/api/fs/mkdir`, {
                 method: "POST",
